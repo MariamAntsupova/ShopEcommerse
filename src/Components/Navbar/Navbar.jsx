@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import './Navbar.css'
 import logo from '../Assets/logo.png'
 import cart_icon from '../Assets/cart_icon.png'
@@ -11,7 +11,7 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menu,setMenu] = useState("shop");
     const {getTotalCartItems} = useContext(ShopContext);
-
+    
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
@@ -30,14 +30,15 @@ const Navbar = () => {
                 <li onClick={()=>setMenu("women")}>  <Link style={{textDecoration: 'none'}}  to='/women'>Women</Link>  {menu==="women"?<hr/>:<></>}</li>
                 <li onClick={()=>setMenu("kids")}>  <Link style={{textDecoration: 'none'}}  to='/kids'>Kids</Link>  {menu==="kids"?<hr/>:<></>}</li>
             </ul>
+            <div className={`hamburger ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
+                ︽
+            </div>
             <div className='nav-login-cart'>
                 <Link to='/login'><button> Login </button></Link>
                 <Link to='/cart'><img src={cart_icon} alt=''/></Link>
                 <div className="nav-cart-count">{getTotalCartItems()}</div>
             </div>
-            <div className='hamburger' onClick={toggleMenu}>
-                ☰
-            </div>
+
         </div>
     )
 }
