@@ -10,11 +10,17 @@ const Navbar = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [menu,setMenu] = useState("shop");
+    const menuRef = useRef(null);
     const {getTotalCartItems} = useContext(ShopContext);
     
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
+
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
+
 
     return (
         <div className='navbar'>
@@ -25,12 +31,12 @@ const Navbar = () => {
                 </Link>
             </div>
             <ul className={`nav-menu ${menuOpen ? 'active' : ''}`}>
-                <li onClick={()=>setMenu("shop")}> <Link style={{textDecoration: 'none'}} to='/'>Shop</Link> {menu==="shop"?<hr/>:<></>}</li>
-                <li onClick={()=>setMenu("men")}>  <Link style={{textDecoration: 'none'}}  to='/men'>Men</Link>  {menu==="men"?<hr/>:<></>}</li>
-                <li onClick={()=>setMenu("women")}>  <Link style={{textDecoration: 'none'}}  to='/women'>Women</Link>  {menu==="women"?<hr/>:<></>}</li>
-                <li onClick={()=>setMenu("kids")}>  <Link style={{textDecoration: 'none'}}  to='/kids'>Kids</Link>  {menu==="kids"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("shop"); closeMenu();}}> <Link style={{textDecoration: 'none'}} to='/'>Shop</Link> {menu==="shop"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("men"); closeMenu();}}>  <Link style={{textDecoration: 'none'}}  to='/men'>Men</Link>  {menu==="men"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("women"); closeMenu();}}>  <Link style={{textDecoration: 'none'}}  to='/women'>Women</Link>  {menu==="women"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("kids"); closeMenu();}}>  <Link style={{textDecoration: 'none'}}  to='/kids'>Kids</Link>  {menu==="kids"?<hr/>:<></>}</li>
             </ul>
-            <div className={`hamburger ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
+            <div ref={menuRef} className={`hamburger ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
                 ︽
             </div>
             <div className='nav-login-cart'>
